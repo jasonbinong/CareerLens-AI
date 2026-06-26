@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CareerLens AI</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app-shell">
+    <aside class="sidebar" aria-label="CareerLens controls">
+      <div class="brand">
+        <span class="brand-mark">CL</span>
+        <div>
+          <h1>CareerLens AI</h1>
+          <p>Labor market intelligence for students</p>
+        </div>
+      </div>
+
+      <nav class="nav-tabs" aria-label="Dashboard views">
+        <button class="nav-tab active" type="button" data-view="overview">Overview</button>
+        <button class="nav-tab" type="button" data-view="skills">Skills</button>
+        <button class="nav-tab" type="button" data-view="certs">Certifications</button>
+        <button class="nav-tab" type="button" data-view="resume">Resume Match</button>
+      </nav>
+
+      <section class="control-panel">
+        <label for="targetRole">Target role</label>
+        <select id="targetRole">
+          <option value="all">All roles</option>
+          <option value="data">Data Analyst</option>
+          <option value="business">Business Analyst</option>
+          <option value="ai">AI / ML Intern</option>
+          <option value="cloud">Cloud / IT Intern</option>
+        </select>
+
+        <label for="jobPostings">Job postings</label>
+        <textarea id="jobPostings" spellcheck="false"></textarea>
+
+        <div class="button-row">
+          <button class="primary-button" id="analyzeButton" type="button">Analyze Market</button>
+          <button class="secondary-button" id="sampleButton" type="button">Load Sample</button>
+        </div>
+      </section>
+    </aside>
+
+    <section class="workspace">
+      <header class="workspace-header">
+        <div>
+          <p class="eyebrow">Student career intelligence</p>
+          <h2 id="viewTitle">Market Overview</h2>
+        </div>
+        <button class="secondary-button" id="copySummaryButton" type="button">Copy Summary</button>
+      </header>
+
+      <section class="metrics-grid" aria-label="Market metrics">
+        <article class="metric-card">
+          <span>Postings analyzed</span>
+          <strong id="postingCount">0</strong>
+        </article>
+        <article class="metric-card">
+          <span>Top skill</span>
+          <strong id="topSkill">-</strong>
+        </article>
+        <article class="metric-card">
+          <span>Resume match</span>
+          <strong id="resumeScore">0%</strong>
+        </article>
+        <article class="metric-card">
+          <span>Suggested focus</span>
+          <strong id="nextFocus">-</strong>
+        </article>
+      </section>
+
+      <section class="view active" id="overviewView">
+        <div class="two-column">
+          <article class="panel">
+            <div class="panel-heading">
+              <h3>Skill Demand</h3>
+              <span id="skillTotal">0 detected</span>
+            </div>
+            <div class="bar-list" id="skillBars"></div>
+          </article>
+
+          <article class="panel">
+            <div class="panel-heading">
+              <h3>Learning Roadmap</h3>
+              <span>Prioritized</span>
+            </div>
+            <ol class="roadmap" id="roadmap"></ol>
+          </article>
+        </div>
+
+        <article class="panel">
+          <div class="panel-heading">
+            <h3>Market Summary</h3>
+            <span>Generated from postings</span>
+          </div>
+          <p class="summary" id="marketSummary"></p>
+        </article>
+      </section>
+
+      <section class="view" id="skillsView">
+        <article class="panel">
+          <div class="panel-heading">
+            <h3>Skills Matrix</h3>
+            <span>Demand by category</span>
+          </div>
+          <div class="matrix-grid" id="skillMatrix"></div>
+        </article>
+      </section>
+
+      <section class="view" id="certsView">
+        <article class="panel">
+          <div class="panel-heading">
+            <h3>Certification Demand</h3>
+            <span>Matched from postings</span>
+          </div>
+          <div class="cert-grid" id="certGrid"></div>
+        </article>
+      </section>
+
+      <section class="view" id="resumeView">
+        <div class="resume-grid">
+          <article class="panel">
+            <div class="panel-heading">
+              <h3>Resume Text</h3>
+              <span>Paste your resume</span>
+            </div>
+            <textarea id="resumeText" spellcheck="false"></textarea>
+            <button class="primary-button full-width" id="matchButton" type="button">Compare Resume</button>
+          </article>
+
+          <article class="panel">
+            <div class="panel-heading">
+              <h3>Gap Analysis</h3>
+              <span id="gapCount">0 gaps</span>
+            </div>
+            <div class="gap-list" id="gapList"></div>
+          </article>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
