@@ -281,6 +281,33 @@ Power BI Excel Google Sheets Oracle Cloud Infrastructure GitHub Agile Developmen
 LearnWise AI recommendation engine dashboard localStorage
 15 Weeks at UMBC Java Python game logic state management`;
 
+const evidenceTemplates = {
+  "SQL": "Include a project with joins, filters, aggregations, and a short explanation of the business question answered.",
+  "Python": "Show a notebook or script that cleans data, analyzes it, and produces a clear output.",
+  "Excel": "Show pivot tables, formulas, and a before/after insight from spreadsheet data.",
+  "Power BI": "Publish dashboard screenshots with measures, slicers, and a written insight summary.",
+  "Tableau": "Include a dashboard or story view that explains a trend or comparison.",
+  "Data Visualization": "Show charts that answer a decision question, not just decorate the page.",
+  "Statistics": "Explain one metric, trend, or test and what decision it supports.",
+  "Machine Learning": "Show model inputs, evaluation metrics, and what the prediction is useful for.",
+  "Generative AI": "Show prompt design, evaluation criteria, and examples of quality improvements.",
+  "Data Quality": "Document how you cleaned, validated, or checked data before analysis.",
+  "JavaScript": "Link a live web app with interactive state, clean UI, and readable code.",
+  "APIs": "Show data pulled from or structured like an API, then transformed into a useful output.",
+  "Cloud": "Document where the app is deployed and what services or hosting choices were used.",
+  "Cybersecurity": "Show a sample incident or log-analysis dashboard with severity and response notes.",
+  "Networking": "Explain a troubleshooting scenario involving DNS, VPN, TCP/IP, or access issues.",
+  "Troubleshooting": "Include a ticket-style case study with issue, diagnosis, fix, and prevention.",
+  "Testing": "Add a test plan, test cases, and bug reports for one of your apps.",
+  "UX Research": "Show interview notes, usability findings, and specific design recommendations.",
+  "Product Metrics": "Create a funnel, retention, or adoption dashboard with recommended actions.",
+  "Agile": "Show a sprint board, issue list, or team workflow from a project.",
+  "Communication": "Add a concise project write-up that explains the problem, approach, and result.",
+  "Business Analysis": "Include user stories, requirements, process map, and acceptance criteria.",
+  "Project Management": "Show a project timeline, risks, milestones, and stakeholder update.",
+  "GitHub": "Keep repos public, organized, and documented with strong README files."
+};
+
 const els = {
   targetRole: document.querySelector("#targetRole"),
   jobPostings: document.querySelector("#jobPostings"),
@@ -289,6 +316,7 @@ const els = {
   sampleButton: document.querySelector("#sampleButton"),
   matchButton: document.querySelector("#matchButton"),
   copySummaryButton: document.querySelector("#copySummaryButton"),
+  downloadReportButton: document.querySelector("#downloadReportButton"),
   navTabs: [...document.querySelectorAll(".nav-tab")],
   views: [...document.querySelectorAll(".view")],
   viewTitle: document.querySelector("#viewTitle"),
@@ -300,15 +328,22 @@ const els = {
   skillBars: document.querySelector("#skillBars"),
   roadmap: document.querySelector("#roadmap"),
   marketSummary: document.querySelector("#marketSummary"),
+  readinessLabel: document.querySelector("#readinessLabel"),
+  roleFocus: document.querySelector("#roleFocus"),
+  roleProject: document.querySelector("#roleProject"),
+  roleCert: document.querySelector("#roleCert"),
+  evidenceChecklist: document.querySelector("#evidenceChecklist"),
   skillMatrix: document.querySelector("#skillMatrix"),
   certGrid: document.querySelector("#certGrid"),
   gapCount: document.querySelector("#gapCount"),
-  gapList: document.querySelector("#gapList")
+  gapList: document.querySelector("#gapList"),
+  bulletSuggestions: document.querySelector("#bulletSuggestions")
 };
 
 const state = {
   analysis: null,
-  resume: starterResume
+  resume: starterResume,
+  resumeAnalysis: null
 };
 
 els.resumeText.value = starterResume;
@@ -326,6 +361,7 @@ els.sampleButton.addEventListener("click", () => {
 els.analyzeButton.addEventListener("click", analyzeMarket);
 els.matchButton.addEventListener("click", analyzeResume);
 els.copySummaryButton.addEventListener("click", copySummary);
+els.downloadReportButton.addEventListener("click", downloadReport);
 els.navTabs.forEach(tab => tab.addEventListener("click", () => switchView(tab.dataset.view)));
 
 function loadSample() {
@@ -356,11 +392,16 @@ function analyzeResume() {
   const weightedPresent = present.reduce((sum, item) => sum + item.count, 0);
   const score = weightedPossible ? Math.round((weightedPresent / weightedPossible) * 100) : 0;
 
+  state.resumeAnalysis = { demanded, present, missing, score };
   els.resumeScore.textContent = `${score}%`;
   els.gapCount.textContent = `${missing.length} gaps`;
   els.nextFocus.textContent = missing[0]?.name || demanded[0]?.name || "-";
+  els.readinessLabel.textContent = getReadinessLabel(score);
   renderGaps(present, missing);
   renderRoadmap(missing, state.analysis.sortedCerts);
+  renderEvidenceChecklist(demanded, present, missing);
+  renderBulletSuggestions(present, missing);
+  els.marketSummary.textContent = buildSummary(state.analysis.postings, state.analysis.sortedSkills, state.analysis.sortedCerts);
 }
 
 function renderMarket() {
@@ -373,6 +414,7 @@ function renderMarket() {
   renderBars(sortedSkills.slice(0, 12));
   renderMatrix(sortedSkills);
   renderCerts(sortedCerts);
+  renderRoleSnapshot();
   els.marketSummary.textContent = buildSummary(postings, sortedSkills, sortedCerts);
 }
 
@@ -391,13 +433,20 @@ function renderRoadmap(missing, certs) {
   const focus = missing.slice(0, 4).map(item => item.name);
   const cert = certs.find(item => item.count > 0)?.name || role.cert;
   const steps = [
-    `Build portfolio proof: ${role.project}`,
-    `Add resume evidence for ${focus[0] || "your strongest demanded skill"} using a project bullet with tool, action, and result.`,
-    `If you want a certification next, prioritize ${cert} because it aligns with ${role.label}.`,
-    `Practice explaining ${focus[1] || role.focus} in a 30-second interview answer.`
+    `Week 1: Build portfolio proof. ${role.project}`,
+    `Week 2: Add resume evidence for ${focus[0] || "your strongest demanded skill"} using a project bullet with tool, action, and result.`,
+    `Week 3: Study toward ${cert} or complete a small project section that proves the same skill.`,
+    `Week 4: Practice explaining ${focus[1] || role.focus} in a 30-second interview answer and post the finished project on LinkedIn.`
   ];
 
   els.roadmap.innerHTML = steps.map(step => `<li>${step}</li>`).join("");
+}
+
+function renderRoleSnapshot() {
+  const role = roleProfiles[els.targetRole.value];
+  els.roleFocus.textContent = role.focus;
+  els.roleProject.textContent = role.project;
+  els.roleCert.textContent = role.cert;
 }
 
 function renderMatrix(skills) {
@@ -420,7 +469,8 @@ function renderMatrix(skills) {
 function renderCerts(certs) {
   const role = roleProfiles[els.targetRole.value];
   els.certGrid.innerHTML = certs.map(cert => `
-    <div class="cert-card">
+    <div class="cert-card ${cert.name === role.cert ? "priority" : ""}">
+      ${cert.name === role.cert ? '<span class="priority-label">Recommended path</span>' : ""}
       <h4>${cert.name}</h4>
       <p class="summary">${cert.count > 0 ? `${cert.count} matching market signals found.` : cert.name === role.cert ? "Recommended for this role even if the sample postings do not name it directly." : "No direct signals in this posting set."}</p>
     </div>
@@ -436,7 +486,35 @@ function renderGaps(present, missing) {
   els.gapList.innerHTML = cards.map(item => `
     <div class="gap-card ${item.status}">
       <h4>${item.name}</h4>
-      <p class="summary">${item.status === "missing" ? "Missing from resume but requested in this role's postings." : "Already visible in your resume."}</p>
+      <p class="summary">${item.status === "missing" ? `Missing from resume. ${evidenceTemplates[item.name] || "Add a concrete project example that proves this skill."}` : "Already visible in your resume."}</p>
+    </div>
+  `).join("");
+}
+
+function renderEvidenceChecklist(demanded, present, missing) {
+  const topDemanded = demanded.slice(0, 8);
+  const presentNames = new Set(present.map(item => item.name));
+  const missingNames = new Set(missing.map(item => item.name));
+
+  els.evidenceChecklist.innerHTML = topDemanded.map(item => {
+    const status = presentNames.has(item.name) && !missingNames.has(item.name) ? "done" : "todo";
+    return `
+      <div class="check-card ${status}">
+        <h4>${item.name}</h4>
+        <p class="summary">${evidenceTemplates[item.name] || "Show this skill through a project, dashboard, report, or case study."}</p>
+      </div>
+    `;
+  }).join("");
+}
+
+function renderBulletSuggestions(present, missing) {
+  const role = roleProfiles[els.targetRole.value];
+  const targetSkills = [...missing.slice(0, 3), ...present.slice(0, 2)].slice(0, 5);
+
+  els.bulletSuggestions.innerHTML = targetSkills.map(item => `
+    <div class="bullet-card">
+      <h4>${item.name}</h4>
+      <p class="summary">Resume bullet idea: Built a ${role.label.toLowerCase()} portfolio artifact using ${item.name} to ${getSkillAction(item.name)}.</p>
     </div>
   `).join("");
 }
@@ -445,7 +523,8 @@ function buildSummary(postings, skills, certs) {
   const role = roleProfiles[els.targetRole.value];
   const topSkills = skills.slice(0, 6).map(item => item.name).join(", ");
   const topCert = certs.find(item => item.count > 0)?.name || role.cert;
-  return `${role.label}: ${role.focus} CareerLens analyzed ${postings.length} role-focused postings and found strongest demand for ${topSkills}. The most relevant certification path is ${topCert}. Recommended portfolio proof: ${role.project}`;
+  const readiness = state.resumeAnalysis ? getReadinessLabel(state.resumeAnalysis.score) : "Readiness pending";
+  return `${role.label}: ${role.focus} CareerLens analyzed ${postings.length} role-focused postings and found strongest demand for ${topSkills}. Current readiness: ${readiness}. The most relevant certification path is ${topCert}. Recommended portfolio proof: ${role.project}`;
 }
 
 function countMatches(text, catalog) {
@@ -493,6 +572,71 @@ async function copySummary() {
   } catch {
     els.copySummaryButton.textContent = "Copy Failed";
   }
+}
+
+function downloadReport() {
+  if (!state.analysis || !state.resumeAnalysis) return;
+
+  const role = roleProfiles[els.targetRole.value];
+  const topSkills = state.analysis.sortedSkills
+    .filter(item => item.count > 0)
+    .slice(0, 10)
+    .map(item => `${item.name} (${item.count})`)
+    .join(", ");
+  const gaps = state.resumeAnalysis.missing.slice(0, 8).map(item => item.name).join(", ") || "No major gaps detected";
+  const cert = state.analysis.sortedCerts.find(item => item.count > 0)?.name || role.cert;
+  const lines = [
+    "CareerLens AI Report",
+    `Role,${csv(role.label)}`,
+    `Readiness,${csv(getReadinessLabel(state.resumeAnalysis.score))}`,
+    `Resume Match,${state.resumeAnalysis.score}%`,
+    `Postings Analyzed,${state.analysis.postings.length}`,
+    `Top Skills,${csv(topSkills)}`,
+    `Priority Gaps,${csv(gaps)}`,
+    `Recommended Certification,${csv(cert)}`,
+    `Portfolio Project,${csv(role.project)}`,
+    `Market Summary,${csv(els.marketSummary.textContent)}`
+  ];
+
+  const blob = new Blob([lines.join("\n")], { type: "text/csv" });
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = `careerlens-${els.targetRole.value}-report.csv`;
+  link.click();
+  URL.revokeObjectURL(link.href);
+}
+
+function getReadinessLabel(score) {
+  if (score >= 80) return "Competitive";
+  if (score >= 60) return "Close, needs proof";
+  if (score >= 35) return "Developing";
+  return "Early stage";
+}
+
+function getSkillAction(skill) {
+  const actions = {
+    "SQL": "query, clean, and summarize role-relevant data for decision-making",
+    "Python": "automate analysis and produce repeatable insights",
+    "Excel": "organize raw data into clear summary tables and metrics",
+    "Power BI": "turn raw data into an interactive dashboard with decision-ready KPIs",
+    "Data Visualization": "communicate trends and recommendations clearly",
+    "Statistics": "evaluate patterns and support conclusions with evidence",
+    "Machine Learning": "train and evaluate a predictive model",
+    "Generative AI": "evaluate AI outputs and improve prompt quality",
+    "Cybersecurity": "classify incidents, prioritize risk, and recommend response steps",
+    "UX Research": "identify user pain points and recommend product improvements",
+    "Business Analysis": "translate stakeholder needs into clear requirements",
+    "Project Management": "coordinate tasks, risks, milestones, and stakeholder updates",
+    "Testing": "validate product quality through test cases and bug reports",
+    "APIs": "integrate structured data into a working application",
+    "Cloud": "deploy and document a reliable hosted solution"
+  };
+
+  return actions[skill] || "solve a role-relevant problem with measurable results";
+}
+
+function csv(value) {
+  return `"${String(value).replace(/"/g, '""')}"`;
 }
 
 function escapeRegExp(value) {

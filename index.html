@@ -78,7 +78,10 @@
           <p class="eyebrow">Student career intelligence</p>
           <h2 id="viewTitle">Market Overview</h2>
         </div>
-        <button class="secondary-button" id="copySummaryButton" type="button">Copy Summary</button>
+        <div class="header-actions">
+          <button class="secondary-button" id="copySummaryButton" type="button">Copy Summary</button>
+          <button class="secondary-button" id="downloadReportButton" type="button">Download Report</button>
+        </div>
       </header>
 
       <section class="metrics-grid" aria-label="Market metrics">
@@ -101,6 +104,27 @@
       </section>
 
       <section class="view active" id="overviewView">
+        <article class="panel role-panel">
+          <div class="panel-heading">
+            <h3>Role Snapshot</h3>
+            <span id="readinessLabel">Readiness</span>
+          </div>
+          <div class="role-grid">
+            <div>
+              <span class="mini-label">Role focus</span>
+              <p id="roleFocus" class="summary"></p>
+            </div>
+            <div>
+              <span class="mini-label">Portfolio proof</span>
+              <p id="roleProject" class="summary"></p>
+            </div>
+            <div>
+              <span class="mini-label">Recommended cert</span>
+              <p id="roleCert" class="summary"></p>
+            </div>
+          </div>
+        </article>
+
         <div class="two-column">
           <article class="panel">
             <div class="panel-heading">
@@ -118,6 +142,14 @@
             <ol class="roadmap" id="roadmap"></ol>
           </article>
         </div>
+
+        <article class="panel">
+          <div class="panel-heading">
+            <h3>Evidence Checklist</h3>
+            <span>What your portfolio should prove</span>
+          </div>
+          <div class="checklist-grid" id="evidenceChecklist"></div>
+        </article>
 
         <article class="panel">
           <div class="panel-heading">
@@ -167,6 +199,14 @@
             <div class="gap-list" id="gapList"></div>
           </article>
         </div>
+
+        <article class="panel">
+          <div class="panel-heading">
+            <h3>Resume Bullet Suggestions</h3>
+            <span>Generated from role gaps</span>
+          </div>
+          <div class="bullet-list" id="bulletSuggestions"></div>
+        </article>
       </section>
     </section>
   </main>
