@@ -5,10 +5,12 @@ CareerLens AI is a labor market intelligence dashboard for students. It analyzes
 ## Features
 
 - Paste or load job postings
+- Choose from 19 student-facing tech roles
 - Analyze skill demand across postings
 - Track certification signals
 - Compare resume text against market demand
 - Generate a prioritized learning roadmap
+- Get role-specific project and certification recommendations
 - Copy a market summary for advising, LinkedIn, or portfolio notes
 - Deployable as a static GitHub Pages app
 

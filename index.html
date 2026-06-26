@@ -30,11 +30,36 @@
       <section class="control-panel">
         <label for="targetRole">Target role</label>
         <select id="targetRole">
-          <option value="all">All roles</option>
-          <option value="data">Data Analyst</option>
-          <option value="business">Business Analyst</option>
-          <option value="ai">AI / ML Intern</option>
-          <option value="cloud">Cloud / IT Intern</option>
+          <option value="all">All student tech roles</option>
+          <optgroup label="Data and analytics">
+            <option value="data_analyst">Data Analyst Intern</option>
+            <option value="bi_analyst">Business Intelligence Analyst</option>
+            <option value="analytics_engineer">Analytics Engineer</option>
+            <option value="database_analyst">Database Analyst</option>
+          </optgroup>
+          <optgroup label="AI and automation">
+            <option value="ai_data_trainer">AI Data Trainer</option>
+            <option value="ml_intern">Machine Learning Intern</option>
+            <option value="ai_product_analyst">AI Product Analyst</option>
+            <option value="automation_analyst">Automation Analyst</option>
+          </optgroup>
+          <optgroup label="Information systems">
+            <option value="business_analyst">Business Analyst</option>
+            <option value="systems_analyst">Systems Analyst</option>
+            <option value="product_analyst">Product Analyst</option>
+            <option value="project_coordinator">IT Project Coordinator</option>
+          </optgroup>
+          <optgroup label="Software and web">
+            <option value="software_engineer">Software Engineering Intern</option>
+            <option value="frontend_developer">Front-End Developer</option>
+            <option value="qa_analyst">QA Analyst</option>
+            <option value="ux_researcher">UX Researcher</option>
+          </optgroup>
+          <optgroup label="Cloud, IT, and security">
+            <option value="cloud_intern">Cloud / IT Intern</option>
+            <option value="cybersecurity_analyst">Cybersecurity Analyst</option>
+            <option value="it_support">IT Support Analyst</option>
+          </optgroup>
         </select>
 
         <label for="jobPostings">Job postings</label>
