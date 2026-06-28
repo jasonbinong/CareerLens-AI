@@ -2,7 +2,15 @@
 
 ![CareerLens AI thumbnail](thumbnail.png)
 
-CareerLens AI is a labor market intelligence dashboard for students. It analyzes internship and entry-level job postings, identifies the most requested skills, estimates certification demand, compares a resume against market trends, and recommends what to learn next.
+CareerLens AI is a labor market intelligence dashboard for students preparing for internships and entry-level technology roles. It helps users understand what employers are asking for, compare their resume against market demand, and choose the next skills, projects, and certifications to prioritize.
+
+## Live Demo
+
+[Open CareerLens AI](https://jasonbinong.github.io/CareerLens-AI/)
+
+## What It Does
+
+CareerLens AI turns job posting text into a practical career-readiness report. Students can paste internship descriptions, choose a target role, scan demand across skills and certifications, and generate a learning roadmap based on gaps between their resume and the market.
 
 ## Features
 
@@ -26,6 +34,13 @@ CareerLens AI is a labor market intelligence dashboard for students. It analyzes
 - CSS
 - JavaScript
 - In-browser text analysis
+
+## What This Project Shows
+
+- Data analysis applied to career planning
+- Information systems thinking around labor market signals
+- Frontend dashboard design and interactive reporting
+- AI/product strategy for student career decision support
 
 ## How To Run
 
