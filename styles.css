@@ -91,7 +91,7 @@ textarea {
 
 .nav-tabs {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: 1fr;
   gap: 6px;
   padding: 4px;
   margin-bottom: 18px;
@@ -114,6 +114,9 @@ textarea {
   color: #334155;
   border-color: transparent;
   border-radius: 6px;
+  min-width: 0;
+  padding: 0 8px;
+  font-size: 0.88rem;
 }
 
 .nav-tab.active {
@@ -235,7 +238,7 @@ h3 {
 
 .metrics-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 14px;
   margin-bottom: 18px;
 }
@@ -277,6 +280,10 @@ h3 {
 
 .metric-card:nth-child(4)::before {
   background: var(--gold);
+}
+
+.metric-card:nth-child(5)::before {
+  background: var(--green);
 }
 
 .metric-card span,
@@ -348,7 +355,9 @@ h3 {
 .cert-grid,
 .matrix-grid,
 .checklist-grid,
-.bullet-list {
+.bullet-list,
+.comparison-grid,
+.dataset-table {
   display: grid;
   gap: 12px;
 }
@@ -416,7 +425,8 @@ h3 {
 .cert-card,
 .gap-card,
 .check-card,
-.bullet-card {
+.bullet-card,
+.comparison-card {
   padding: 14px;
   border: 1px solid var(--line);
   background: var(--panel-soft);
@@ -427,12 +437,44 @@ h3 {
 .cert-card h4,
 .gap-card h4,
 .check-card h4,
-.bullet-card h4 {
+.bullet-card h4,
+.comparison-card h4 {
   margin: 0 0 8px;
 }
 
 .cert-card.priority {
   border-left: 4px solid var(--blue);
+}
+
+.comparison-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.comparison-card {
+  border-left: 4px solid var(--line);
+}
+
+.comparison-card.active {
+  border-left-color: var(--blue);
+  background: #f3f8fd;
+}
+
+.dataset-row {
+  display: grid;
+  grid-template-columns: 1.1fr 0.45fr 0.65fr 1.5fr;
+  gap: 12px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  background: var(--panel-soft);
+  border-radius: 8px;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.dataset-row.heading {
+  background: #e7f0fa;
+  color: var(--blue-dark);
+  font-weight: 900;
 }
 
 .priority-label {
@@ -499,9 +541,12 @@ h3 {
   .metrics-grid,
   .two-column,
   .resume-grid,
-  .role-grid {
+  .role-grid,
+  .comparison-grid,
+  .dataset-row {
     grid-template-columns: 1fr;
   }
+
 
   .sidebar,
   .workspace {

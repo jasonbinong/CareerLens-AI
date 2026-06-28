@@ -24,6 +24,7 @@
         <button class="nav-tab active" type="button" data-view="overview">Overview</button>
         <button class="nav-tab" type="button" data-view="skills">Skills</button>
         <button class="nav-tab" type="button" data-view="certs">Certifications</button>
+        <button class="nav-tab" type="button" data-view="compare">Role Compare</button>
         <button class="nav-tab" type="button" data-view="resume">Resume Match</button>
       </nav>
 
@@ -101,6 +102,10 @@
           <span>Suggested focus</span>
           <strong id="nextFocus">-</strong>
         </article>
+        <article class="metric-card">
+          <span>Dataset signals</span>
+          <strong id="datasetSignals">0</strong>
+        </article>
       </section>
 
       <section class="view active" id="overviewView">
@@ -177,6 +182,24 @@
             <span>Matched from postings</span>
           </div>
           <div class="cert-grid" id="certGrid"></div>
+        </article>
+      </section>
+
+      <section class="view" id="compareView">
+        <article class="panel">
+          <div class="panel-heading">
+            <h3>Role Comparison</h3>
+            <span>Curated early-career tech market signals</span>
+          </div>
+          <div class="comparison-grid" id="comparisonGrid"></div>
+        </article>
+
+        <article class="panel">
+          <div class="panel-heading">
+            <h3>Market Dataset</h3>
+            <span>Built-in benchmark table</span>
+          </div>
+          <div class="dataset-table" id="datasetTable"></div>
         </article>
       </section>
 

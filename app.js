@@ -275,6 +275,73 @@ const samplePostings = {
   ]
 };
 
+const laborMarketDataset = [
+  {
+    role: "Data Analyst Intern",
+    key: "data_analyst",
+    demand: 86,
+    salaryRange: "$22-$34/hr",
+    topSkills: ["SQL", "Excel", "Power BI", "Data Visualization"],
+    portfolioProof: "Dashboard + cleaned dataset + insight memo"
+  },
+  {
+    role: "Business Intelligence Analyst",
+    key: "bi_analyst",
+    demand: 82,
+    salaryRange: "$24-$36/hr",
+    topSkills: ["Power BI", "SQL", "DAX", "Data Modeling"],
+    portfolioProof: "KPI dashboard with slicers and DAX measures"
+  },
+  {
+    role: "AI Data Trainer",
+    key: "ai_data_trainer",
+    demand: 79,
+    salaryRange: "$20-$32/hr",
+    topSkills: ["AI Model Evaluation", "Prompt Engineering", "Data Quality", "Communication"],
+    portfolioProof: "AI response evaluation rubric with scored examples"
+  },
+  {
+    role: "Business Analyst",
+    key: "business_analyst",
+    demand: 76,
+    salaryRange: "$23-$35/hr",
+    topSkills: ["Requirements", "SQL", "Excel", "Agile"],
+    portfolioProof: "Requirements package with process map and user stories"
+  },
+  {
+    role: "Systems Analyst",
+    key: "systems_analyst",
+    demand: 73,
+    salaryRange: "$24-$37/hr",
+    topSkills: ["Systems Analysis", "Database Management", "Documentation", "Testing"],
+    portfolioProof: "System design document with data model and workflows"
+  },
+  {
+    role: "Software Engineering Intern",
+    key: "software_engineer",
+    demand: 88,
+    salaryRange: "$28-$45/hr",
+    topSkills: ["JavaScript", "APIs", "Testing", "GitHub"],
+    portfolioProof: "Deployed app with documented features and issue history"
+  },
+  {
+    role: "Cloud / IT Intern",
+    key: "cloud_intern",
+    demand: 71,
+    salaryRange: "$22-$34/hr",
+    topSkills: ["Cloud", "Troubleshooting", "Networking", "Documentation"],
+    portfolioProof: "Deployment architecture notes and troubleshooting playbook"
+  },
+  {
+    role: "Cybersecurity Analyst",
+    key: "cybersecurity_analyst",
+    demand: 78,
+    salaryRange: "$25-$39/hr",
+    topSkills: ["Security", "Incident Response", "Risk", "Networking"],
+    portfolioProof: "Sample incident dashboard with severity and response notes"
+  }
+];
+
 const starterResume = `Java Python SQL JavaScript HTML CSS
 Data Analysis Generative AI Prompt Engineering AI Model Evaluation Large Language Models
 Power BI Excel Google Sheets Oracle Cloud Infrastructure GitHub Agile Development Version Control
@@ -324,6 +391,7 @@ const els = {
   topSkill: document.querySelector("#topSkill"),
   resumeScore: document.querySelector("#resumeScore"),
   nextFocus: document.querySelector("#nextFocus"),
+  datasetSignals: document.querySelector("#datasetSignals"),
   skillTotal: document.querySelector("#skillTotal"),
   skillBars: document.querySelector("#skillBars"),
   roadmap: document.querySelector("#roadmap"),
@@ -335,6 +403,8 @@ const els = {
   evidenceChecklist: document.querySelector("#evidenceChecklist"),
   skillMatrix: document.querySelector("#skillMatrix"),
   certGrid: document.querySelector("#certGrid"),
+  comparisonGrid: document.querySelector("#comparisonGrid"),
+  datasetTable: document.querySelector("#datasetTable"),
   gapCount: document.querySelector("#gapCount"),
   gapList: document.querySelector("#gapList"),
   bulletSuggestions: document.querySelector("#bulletSuggestions")
@@ -409,11 +479,14 @@ function renderMarket() {
   const top = sortedSkills[0];
 
   els.postingCount.textContent = postings.length;
+  els.datasetSignals.textContent = laborMarketDataset.length;
   els.topSkill.textContent = top?.name || "-";
   els.skillTotal.textContent = `${sortedSkills.filter(item => item.count > 0).length} detected`;
   renderBars(sortedSkills.slice(0, 12));
   renderMatrix(sortedSkills);
   renderCerts(sortedCerts);
+  renderComparison();
+  renderDatasetTable();
   renderRoleSnapshot();
   els.marketSummary.textContent = buildSummary(postings, sortedSkills, sortedCerts);
 }
@@ -477,6 +550,47 @@ function renderCerts(certs) {
   `).join("");
 }
 
+function renderComparison() {
+  const selected = els.targetRole.value;
+  const cards = laborMarketDataset
+    .slice()
+    .sort((a, b) => b.demand - a.demand)
+    .map(item => {
+      const active = item.key === selected || (selected === "all" && item.demand >= 82);
+      return `
+        <div class="comparison-card ${active ? "active" : ""}">
+          <div>
+            <span class="priority-label">${item.demand}/100 demand</span>
+            <h4>${item.role}</h4>
+          </div>
+          <p class="summary"><strong>Estimated student range:</strong> ${item.salaryRange}</p>
+          <p class="summary"><strong>Top skills:</strong> ${item.topSkills.join(", ")}</p>
+          <p class="summary"><strong>Portfolio proof:</strong> ${item.portfolioProof}</p>
+        </div>
+      `;
+    });
+  els.comparisonGrid.innerHTML = cards.join("");
+}
+
+function renderDatasetTable() {
+  els.datasetTable.innerHTML = `
+    <div class="dataset-row heading">
+      <span>Role</span>
+      <span>Demand</span>
+      <span>Range</span>
+      <span>Proof</span>
+    </div>
+    ${laborMarketDataset.map(item => `
+      <div class="dataset-row">
+        <span>${item.role}</span>
+        <span>${item.demand}/100</span>
+        <span>${item.salaryRange}</span>
+        <span>${item.portfolioProof}</span>
+      </div>
+    `).join("")}
+  `;
+}
+
 function renderGaps(present, missing) {
   const cards = [
     ...missing.map(item => ({ ...item, status: "missing" })),
@@ -521,10 +635,12 @@ function renderBulletSuggestions(present, missing) {
 
 function buildSummary(postings, skills, certs) {
   const role = roleProfiles[els.targetRole.value];
+  const benchmark = laborMarketDataset.find(item => item.key === els.targetRole.value);
   const topSkills = skills.slice(0, 6).map(item => item.name).join(", ");
   const topCert = certs.find(item => item.count > 0)?.name || role.cert;
   const readiness = state.resumeAnalysis ? getReadinessLabel(state.resumeAnalysis.score) : "Readiness pending";
-  return `${role.label}: ${role.focus} CareerLens analyzed ${postings.length} role-focused postings and found strongest demand for ${topSkills}. Current readiness: ${readiness}. The most relevant certification path is ${topCert}. Recommended portfolio proof: ${role.project}`;
+  const benchmarkLine = benchmark ? ` The built-in benchmark estimates ${benchmark.demand}/100 demand and a student range of ${benchmark.salaryRange}.` : "";
+  return `${role.label}: ${role.focus} CareerLens analyzed ${postings.length} role-focused postings and found strongest demand for ${topSkills}. Current readiness: ${readiness}. The most relevant certification path is ${topCert}.${benchmarkLine} Recommended portfolio proof: ${role.project}`;
 }
 
 function countMatches(text, catalog) {
@@ -553,6 +669,7 @@ function switchView(view) {
     overview: "Market Overview",
     skills: "Skills Intelligence",
     certs: "Certification Demand",
+    compare: "Role Comparison",
     resume: "Resume Match"
   };
 
@@ -585,6 +702,7 @@ function downloadReport() {
     .join(", ");
   const gaps = state.resumeAnalysis.missing.slice(0, 8).map(item => item.name).join(", ") || "No major gaps detected";
   const cert = state.analysis.sortedCerts.find(item => item.count > 0)?.name || role.cert;
+  const benchmark = laborMarketDataset.find(item => item.key === els.targetRole.value);
   const lines = [
     "CareerLens AI Report",
     `Role,${csv(role.label)}`,
@@ -594,6 +712,8 @@ function downloadReport() {
     `Top Skills,${csv(topSkills)}`,
     `Priority Gaps,${csv(gaps)}`,
     `Recommended Certification,${csv(cert)}`,
+    `Benchmark Demand,${csv(benchmark ? `${benchmark.demand}/100` : "All-role view")}`,
+    `Estimated Student Range,${csv(benchmark?.salaryRange || "Varies by role")}`,
     `Portfolio Project,${csv(role.project)}`,
     `Market Summary,${csv(els.marketSummary.textContent)}`
   ];

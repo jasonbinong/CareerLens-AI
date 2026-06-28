@@ -24,6 +24,8 @@ CareerLens AI turns job posting text into a practical career-readiness report. S
 - View readiness level and critical resume gaps
 - Generate role-specific portfolio evidence checklists
 - Generate resume bullet ideas from missing skills
+- Compare early-career tech roles with built-in benchmark signals
+- View a curated market dataset with demand, estimated student salary ranges, top skills, and portfolio proof
 - Copy a market summary for advising, LinkedIn, or portfolio notes
 - Download a CSV career-readiness report
 - Deployable as a static GitHub Pages app
@@ -41,6 +43,7 @@ CareerLens AI turns job posting text into a practical career-readiness report. S
 - Information systems thinking around labor market signals
 - Frontend dashboard design and interactive reporting
 - AI/product strategy for student career decision support
+- Labor market benchmarking and role comparison
 
 ## How To Run
 
