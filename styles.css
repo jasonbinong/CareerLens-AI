@@ -426,11 +426,17 @@ h3 {
 .gap-card,
 .check-card,
 .bullet-card,
-.comparison-card {
+.comparison-card,
+.empty-state {
   padding: 14px;
   border: 1px solid var(--line);
   background: var(--panel-soft);
   border-radius: 8px;
+}
+
+.empty-state {
+  color: var(--muted);
+  line-height: 1.55;
 }
 
 .matrix-card h4,

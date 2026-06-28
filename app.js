@@ -342,12 +342,6 @@ const laborMarketDataset = [
   }
 ];
 
-const starterResume = `Java Python SQL JavaScript HTML CSS
-Data Analysis Generative AI Prompt Engineering AI Model Evaluation Large Language Models
-Power BI Excel Google Sheets Oracle Cloud Infrastructure GitHub Agile Development Version Control
-LearnWise AI recommendation engine dashboard localStorage
-15 Weeks at UMBC Java Python game logic state management`;
-
 const evidenceTemplates = {
   "SQL": "Include a project with joins, filters, aggregations, and a short explanation of the business question answered.",
   "Python": "Show a notebook or script that cleans data, analyzes it, and produces a clear output.",
@@ -412,21 +406,22 @@ const els = {
 
 const state = {
   analysis: null,
-  resume: starterResume,
+  resume: "",
   resumeAnalysis: null
 };
 
-els.resumeText.value = starterResume;
-loadSample();
-analyzeMarket();
+els.resumeText.value = "";
+renderEmptyMarket();
 
 els.targetRole.addEventListener("change", () => {
-  loadSample();
-  analyzeMarket();
+  if (els.targetRole.value) {
+    els.jobPostings.value = "";
+    renderEmptyMarket();
+  }
 });
 els.sampleButton.addEventListener("click", () => {
   loadSample();
-  analyzeMarket();
+  if (els.jobPostings.value.trim()) analyzeMarket();
 });
 els.analyzeButton.addEventListener("click", analyzeMarket);
 els.matchButton.addEventListener("click", analyzeResume);
@@ -436,11 +431,23 @@ els.navTabs.forEach(tab => tab.addEventListener("click", () => switchView(tab.da
 
 function loadSample() {
   const role = els.targetRole.value;
+  if (!role) {
+    window.alert("Select a target role first.");
+    return;
+  }
   els.jobPostings.value = samplePostings[role].join("\n\n");
 }
 
 function analyzeMarket() {
+  if (!els.targetRole.value) {
+    window.alert("Select a target role before analyzing.");
+    return;
+  }
   const postings = splitPostings(els.jobPostings.value);
+  if (!postings.length) {
+    window.alert("Paste job postings or load a sample before analyzing.");
+    return;
+  }
   const skillCounts = countMatches(postings.join("\n"), skillCatalog);
   const certScores = countMatches(postings.join("\n"), certCatalog);
   const sortedSkills = sortCounts(skillCounts);
@@ -472,6 +479,32 @@ function analyzeResume() {
   renderEvidenceChecklist(demanded, present, missing);
   renderBulletSuggestions(present, missing);
   els.marketSummary.textContent = buildSummary(state.analysis.postings, state.analysis.sortedSkills, state.analysis.sortedCerts);
+}
+
+function renderEmptyMarket() {
+  state.analysis = null;
+  state.resumeAnalysis = null;
+  els.postingCount.textContent = "0";
+  els.datasetSignals.textContent = laborMarketDataset.length;
+  els.topSkill.textContent = "-";
+  els.resumeScore.textContent = "0%";
+  els.nextFocus.textContent = "-";
+  els.skillTotal.textContent = "0 detected";
+  els.readinessLabel.textContent = "Select role";
+  els.roleFocus.textContent = "Choose a target role, then paste job postings or load a sample to generate market intelligence.";
+  els.roleProject.textContent = "Portfolio recommendations will appear after analysis.";
+  els.roleCert.textContent = "Certification guidance will appear after analysis.";
+  els.skillBars.innerHTML = emptyState("Select a role and analyze postings to see skill demand.");
+  els.roadmap.innerHTML = "<li>Select a role and analyze postings to generate a learning roadmap.</li>";
+  els.evidenceChecklist.innerHTML = emptyState("Evidence requirements appear after analysis.");
+  els.marketSummary.textContent = "No market analysis yet.";
+  els.skillMatrix.innerHTML = emptyState("Analyze postings to populate the skills matrix.");
+  els.certGrid.innerHTML = emptyState("Analyze postings to estimate certification demand.");
+  els.gapCount.textContent = "0 gaps";
+  els.gapList.innerHTML = emptyState("Paste a resume after analyzing postings to compare fit.");
+  els.bulletSuggestions.innerHTML = emptyState("Resume bullet ideas appear after analysis.");
+  renderComparison();
+  renderDatasetTable();
 }
 
 function renderMarket() {
@@ -676,6 +709,10 @@ function switchView(view) {
   els.viewTitle.textContent = titles[view];
   els.navTabs.forEach(tab => tab.classList.toggle("active", tab.dataset.view === view));
   els.views.forEach(section => section.classList.toggle("active", section.id === `${view}View`));
+}
+
+function emptyState(message) {
+  return `<div class="empty-state">${message}</div>`;
 }
 
 async function copySummary() {
