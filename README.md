@@ -45,6 +45,34 @@ CareerLens AI turns job posting text into a practical career-readiness report. S
 - AI/product strategy for student career decision support
 - Labor market benchmarking and role comparison
 
+## Case Study
+
+### Problem
+
+Students often apply to internships without knowing which skills, certifications, and portfolio evidence employers are repeatedly asking for. Job descriptions contain useful signals, but those signals are hard to compare manually across roles.
+
+### Solution
+
+CareerLens AI turns job posting text into a career-readiness report. Users select a target role, paste postings or load sample data, analyze skill and certification demand, compare resume text against role requirements, and generate a focused learning roadmap.
+
+### Key Design Decisions
+
+- Requires the user to select a role before analysis so the output is personalized
+- Uses in-browser text analysis to stay fast, private, and deployable on GitHub Pages
+- Groups roles into student-facing categories such as data, AI, information systems, software, cloud, and security
+- Adds a benchmark dataset so users can compare demand, estimated student salary ranges, top skills, and portfolio proof by role
+
+### What I Learned
+
+This project helped me connect data analytics, career technology, and information systems. I practiced turning unstructured text into structured insights and designing a dashboard that explains not only what skills are missing, but what evidence a student should build next.
+
+### Future Improvements
+
+- Add a Python backend for larger job posting ingestion
+- Store posting history and user reports in SQL
+- Add live job-board API integrations
+- Build a Power BI dashboard from exported CareerLens reports
+
 ## How To Run
 
 Open `index.html` in a browser.
