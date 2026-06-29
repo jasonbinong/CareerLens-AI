@@ -1,0 +1,11 @@
+id,role_category,title,company,location,description
+1,data_analyst,Data Analyst Intern,Campus Analytics Lab,Baltimore MD,"Use SQL Excel Power BI and dashboards to clean student success data and present insights to stakeholders."
+2,data_analyst,Operations Analytics Intern,Local Commerce Co,Remote,"Analyze operational metrics with SQL Excel data visualization statistics and communication with business teams."
+3,ai_data_trainer,AI Response Evaluator,Model Quality Studio,Remote,"Evaluate LLM responses using prompt engineering rubric scoring data quality documentation and AI safety guidelines."
+4,ai_product_analyst,AI Product Analyst Intern,Learning Platform Startup,Washington DC,"Measure AI feature adoption product metrics funnel conversion SQL dashboards LLM evaluation and user feedback."
+5,business_analyst,Information Systems Business Analyst,Campus IT,Baltimore MD,"Gather requirements write user stories map processes support Agile teams use SQL Excel and stakeholder communication."
+6,systems_analyst,Systems Analyst Intern,Student Services Tech,Hybrid,"Document workflows test systems analyze database needs APIs troubleshooting data quality and process improvement."
+7,cloud_intern,Cloud Support Intern,Cloud Services Group,Remote,"Support cloud computing troubleshooting networking documentation AWS OCI GitHub and customer communication."
+8,software_engineer,Software Engineering Intern,Portfolio Tools Inc,Remote,"Build JavaScript APIs responsive web apps tests GitHub debugging Agile and technical documentation."
+9,cybersecurity_analyst,Cybersecurity Analyst Intern,Security Operations Lab,Baltimore MD,"Review SIEM alerts incident response vulnerability risk reporting documentation and security fundamentals."
+10,product_analyst,Product Analyst Intern,EdTech Product Team,Remote,"Analyze user behavior retention adoption funnel metrics experimentation SQL dashboards and stakeholder presentations."

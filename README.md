@@ -17,6 +17,7 @@ CareerLens AI turns job posting text into a practical career-readiness report. S
 - Paste or load job postings
 - Choose from 19 student-facing tech roles
 - Analyze skill demand across postings
+- Run a reusable CSV job-posting analysis pipeline
 - Track certification signals
 - Compare resume text against market demand
 - Generate a prioritized learning roadmap
@@ -28,6 +29,7 @@ CareerLens AI turns job posting text into a practical career-readiness report. S
 - View a curated market dataset with demand, estimated student salary ranges, top skills, and portfolio proof
 - Copy a market summary for advising, LinkedIn, or portfolio notes
 - Download a CSV career-readiness report
+- SQL schema for storing postings, skill mentions, role summaries, and resume gap reports
 - Deployable as a static GitHub Pages app
 
 ## Tech Stack
@@ -36,12 +38,17 @@ CareerLens AI turns job posting text into a practical career-readiness report. S
 - CSS
 - JavaScript
 - In-browser text analysis
+- Python
+- CSV analysis pipeline
+- SQL schema
 
 ## What This Project Shows
 
 - Data analysis applied to career planning
 - Information systems thinking around labor market signals
 - Frontend dashboard design and interactive reporting
+- Reusable data pipeline design for job posting analysis
+- Relational modeling for market intelligence data
 - AI/product strategy for student career decision support
 - Labor market benchmarking and role comparison
 
@@ -59,6 +66,8 @@ CareerLens AI turns job posting text into a career-readiness report. Users selec
 
 - Requires the user to select a role before analysis so the output is personalized
 - Uses in-browser text analysis to stay fast, private, and deployable on GitHub Pages
+- Adds a Python CSV pipeline so the analysis can scale beyond the browser demo
+- Includes a SQL schema to show how postings, skill mentions, and resume gap reports could be stored
 - Groups roles into student-facing categories such as data, AI, information systems, software, cloud, and security
 - Adds a benchmark dataset so users can compare demand, estimated student salary ranges, top skills, and portfolio proof by role
 
@@ -76,6 +85,27 @@ This project helped me connect data analytics, career technology, and informatio
 ## How To Run
 
 Open `index.html` in a browser.
+
+## Data Pipeline
+
+CareerLens AI also includes a Python pipeline for analyzing job posting CSV files.
+
+```bash
+python scripts/analyze_postings.py
+```
+
+This reads:
+
+```text
+data/sample_postings.csv
+```
+
+And writes:
+
+```text
+output/market_report.json
+output/role_skill_summary.csv
+```
 
 ## Future Upgrade Path
 

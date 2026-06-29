@@ -7,3 +7,5 @@ desktop.ini
 .env
 node_modules/
 *.log
+output/
+__pycache__/
