@@ -1,16 +1,16 @@
-# CareerLens AI
+# CareerLens
 
-![CareerLens AI thumbnail](thumbnail.png)
+![CareerLens thumbnail](thumbnail.png)
 
-CareerLens AI is a labor market intelligence dashboard for students preparing for internships and entry-level technology roles. It helps users understand what employers are asking for, compare their resume against market demand, and choose the next skills, projects, and certifications to prioritize.
+CareerLens is a labor market intelligence dashboard for students preparing for internships and entry-level technology roles. It helps users understand what employers are asking for, compare their resume against market demand, and choose the next skills, projects, and certifications to prioritize.
 
 ## Live Demo
 
-[Open CareerLens AI](https://jasonbinong.github.io/CareerLens-AI/)
+[Open CareerLens](https://jasonbinong.github.io/CareerLens-AI/)
 
 ## What It Does
 
-CareerLens AI turns job posting text into a practical career-readiness report. Students can paste internship descriptions, choose a target role, scan demand across skills and certifications, and generate a learning roadmap based on gaps between their resume and the market.
+CareerLens turns job posting text into a practical career-readiness report. Students can paste internship descriptions, choose a target role, scan demand across skills and certifications, and generate a learning roadmap based on gaps between their resume and the market.
 
 ## Features
 
@@ -60,7 +60,7 @@ Students often apply to internships without knowing which skills, certifications
 
 ### Solution
 
-CareerLens AI turns job posting text into a career-readiness report. Users select a target role, paste postings or load sample data, analyze skill and certification demand, compare resume text against role requirements, and generate a focused learning roadmap.
+CareerLens turns job posting text into a career-readiness report. Users select a target role, paste postings or load sample data, analyze skill and certification demand, compare resume text against role requirements, and generate a focused learning roadmap.
 
 ### Key Design Decisions
 
@@ -88,7 +88,7 @@ Open `index.html` in a browser.
 
 ## Data Pipeline
 
-CareerLens AI also includes a Python pipeline for analyzing job posting CSV files.
+CareerLens also includes a Python pipeline for analyzing job posting CSV files.
 
 ```bash
 python scripts/analyze_postings.py

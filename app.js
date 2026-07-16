@@ -98,7 +98,7 @@ const roleProfiles = {
   ux_researcher: {
     label: "UX Researcher",
     focus: "Understand user needs through interviews, usability tests, and evidence-based recommendations.",
-    project: "Run a usability study on LearnWise AI and summarize findings, issues, and redesign priorities.",
+    project: "Run a usability study on LearnWise and summarize findings, issues, and redesign priorities.",
     cert: "Google UX Design"
   },
   cloud_intern: {
@@ -741,7 +741,7 @@ function downloadReport() {
   const cert = state.analysis.sortedCerts.find(item => item.count > 0)?.name || role.cert;
   const benchmark = laborMarketDataset.find(item => item.key === els.targetRole.value);
   const lines = [
-    "CareerLens AI Report",
+    "CareerLens Report",
     `Role,${csv(role.label)}`,
     `Readiness,${csv(getReadinessLabel(state.resumeAnalysis.score))}`,
     `Resume Match,${state.resumeAnalysis.score}%`,
