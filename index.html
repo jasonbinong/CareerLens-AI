@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=systems-1">
 </head>
 <body>
   <main class="app-shell">
@@ -110,6 +110,24 @@
       </section>
 
       <section class="view active" id="overviewView">
+        <div class="two-column">
+          <article class="panel">
+            <div class="panel-heading">
+              <h3>Priority Insights</h3>
+              <span>What to act on first</span>
+            </div>
+            <div class="insight-list" id="priorityInsights"></div>
+          </article>
+
+          <article class="panel">
+            <div class="panel-heading">
+              <h3>Decision Brief</h3>
+              <span>Advisor-ready summary</span>
+            </div>
+            <div class="brief-list" id="decisionBrief"></div>
+          </article>
+        </div>
+
         <article class="panel role-panel">
           <div class="panel-heading">
             <h3>Role Snapshot</h3>
@@ -235,6 +253,6 @@
     </section>
   </main>
 
-  <script src="app.js"></script>
+  <script src="app.js?v=systems-1"></script>
 </body>
 </html>

@@ -356,6 +356,8 @@ h3 {
 .matrix-grid,
 .checklist-grid,
 .bullet-list,
+.insight-list,
+.brief-list,
 .comparison-grid,
 .dataset-table {
   display: grid;
@@ -426,6 +428,8 @@ h3 {
 .gap-card,
 .check-card,
 .bullet-card,
+.insight-card,
+.brief-row,
 .comparison-card,
 .empty-state {
   padding: 14px;
@@ -444,8 +448,52 @@ h3 {
 .gap-card h4,
 .check-card h4,
 .bullet-card h4,
+.insight-card h4,
 .comparison-card h4 {
   margin: 0 0 8px;
+}
+
+.insight-card {
+  border-left: 4px solid var(--blue);
+}
+
+.insight-card:nth-child(2) {
+  border-left-color: var(--gold);
+}
+
+.insight-card:nth-child(3) {
+  border-left-color: var(--teal);
+}
+
+.insight-card:nth-child(4) {
+  border-left-color: var(--violet);
+}
+
+.insight-card span {
+  display: inline-block;
+  margin-bottom: 8px;
+  color: var(--blue-dark);
+  font-size: 0.74rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.brief-row {
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr);
+  gap: 12px;
+  align-items: start;
+}
+
+.brief-row span {
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 900;
+}
+
+.brief-row strong {
+  color: #182230;
+  line-height: 1.45;
 }
 
 .cert-card.priority {
@@ -549,6 +597,7 @@ h3 {
   .resume-grid,
   .role-grid,
   .comparison-grid,
+  .brief-row,
   .dataset-row {
     grid-template-columns: 1fr;
   }
