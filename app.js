@@ -397,6 +397,7 @@ const els = {
   roleProject: document.querySelector("#roleProject"),
   roleCert: document.querySelector("#roleCert"),
   evidenceChecklist: document.querySelector("#evidenceChecklist"),
+  applicationPacket: document.querySelector("#applicationPacket"),
   skillMatrix: document.querySelector("#skillMatrix"),
   certGrid: document.querySelector("#certGrid"),
   comparisonGrid: document.querySelector("#comparisonGrid"),
@@ -479,6 +480,7 @@ function analyzeResume() {
   renderGaps(present, missing);
   renderRoadmap(missing, state.analysis.sortedCerts);
   renderEvidenceChecklist(demanded, present, missing);
+  renderApplicationPacket(present, missing);
   renderBulletSuggestions(present, missing);
   renderPriorityInsights();
   renderDecisionBrief();
@@ -501,6 +503,7 @@ function renderEmptyMarket() {
   els.skillBars.innerHTML = emptyState("Select a role and analyze postings to see skill demand.");
   els.roadmap.innerHTML = "<li>Select a role and analyze postings to generate a learning roadmap.</li>";
   els.evidenceChecklist.innerHTML = emptyState("Evidence requirements appear after analysis.");
+  els.applicationPacket.innerHTML = emptyState("Analyze postings and compare a resume to generate application assets.");
   els.priorityInsights.innerHTML = emptyState("Analyze postings to generate priority insights.");
   els.decisionBrief.innerHTML = emptyState("A concise role decision brief will appear after analysis.");
   els.marketSummary.textContent = "No market analysis yet.";
@@ -527,6 +530,7 @@ function renderMarket() {
   renderComparison();
   renderDatasetTable();
   renderRoleSnapshot();
+  renderApplicationPacket([], state.analysis.sortedSkills.filter(item => item.count > 0).slice(0, 4));
   renderPriorityInsights();
   renderDecisionBrief();
   els.marketSummary.textContent = buildSummary(postings, sortedSkills, sortedCerts);
@@ -730,6 +734,50 @@ function renderEvidenceChecklist(demanded, present, missing) {
       </div>
     `;
   }).join("");
+}
+
+function renderApplicationPacket(present = [], missing = []) {
+  if (!state.analysis) {
+    els.applicationPacket.innerHTML = emptyState("Analyze postings and compare a resume to generate application assets.");
+    return;
+  }
+
+  const role = roleProfiles[els.targetRole.value];
+  const topSkills = state.analysis.sortedSkills.filter(item => item.count > 0);
+  const strongestSkill = present[0]?.name || topSkills[0]?.name || "role-specific evidence";
+  const firstGap = missing[0]?.name || topSkills[1]?.name || "a stronger project outcome";
+  const benchmark = laborMarketDataset.find(item => item.key === els.targetRole.value);
+  const proof = benchmark?.portfolioProof || role.project;
+  const readiness = state.resumeAnalysis ? getReadinessLabel(state.resumeAnalysis.score) : "Resume pending";
+  const assets = [
+    {
+      label: "LinkedIn headline",
+      text: `${role.label} candidate focused on ${strongestSkill}, student career systems, and portfolio-backed problem solving.`
+    },
+    {
+      label: "Resume focus",
+      text: `Add one bullet proving ${firstGap} with action, tool, and result before applying to this role.`
+    },
+    {
+      label: "Portfolio proof",
+      text: proof
+    },
+    {
+      label: "Interview story",
+      text: `Explain how you used CareerLens to compare market demand, identify ${firstGap}, and choose a focused next project.`
+    },
+    {
+      label: "Readiness note",
+      text: `${readiness}${state.resumeAnalysis ? ` at ${state.resumeAnalysis.score}% resume match` : ""}. Use this as a checkpoint, not a final judgment.`
+    }
+  ];
+
+  els.applicationPacket.innerHTML = assets.map(item => `
+    <div class="packet-card">
+      <span>${item.label}</span>
+      <p class="summary">${item.text}</p>
+    </div>
+  `).join("");
 }
 
 function renderBulletSuggestions(present, missing) {

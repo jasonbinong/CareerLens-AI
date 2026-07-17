@@ -26,6 +26,7 @@ CareerLens turns job posting text into a practical career-readiness report. Stud
 - Get role-specific project and certification recommendations
 - View readiness level and critical resume gaps
 - Generate role-specific portfolio evidence checklists
+- Generate an application packet with LinkedIn headline, resume focus, portfolio proof, interview story, and readiness note
 - Generate resume bullet ideas from missing skills
 - Identify the first resume gap to close and the strongest portfolio proof to lead with
 - Compare early-career tech roles with built-in benchmark signals
@@ -70,6 +71,7 @@ CareerLens turns job posting text into a career-readiness report. Users select a
 - Requires the user to select a role before analysis so the output is personalized
 - Uses in-browser text analysis to stay fast, private, and deployable on GitHub Pages
 - Adds Priority Insights and a Decision Brief so the analysis produces an actionable recommendation, not just charts
+- Adds an Application Packet so the final output becomes useful for applying, interviewing, advising meetings, and LinkedIn updates
 - Adds a Python CSV pipeline so the analysis can scale beyond the browser demo
 - Includes a SQL schema to show how postings, skill mentions, and resume gap reports could be stored
 - Groups roles into student-facing categories such as data, AI, information systems, software, cloud, and security

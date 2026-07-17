@@ -356,6 +356,7 @@ h3 {
 .matrix-grid,
 .checklist-grid,
 .bullet-list,
+.packet-grid,
 .insight-list,
 .brief-list,
 .comparison-grid,
@@ -428,6 +429,7 @@ h3 {
 .gap-card,
 .check-card,
 .bullet-card,
+.packet-card,
 .insight-card,
 .brief-row,
 .comparison-card,
@@ -451,6 +453,25 @@ h3 {
 .insight-card h4,
 .comparison-card h4 {
   margin: 0 0 8px;
+}
+
+.packet-grid {
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.packet-card {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  min-height: 150px;
+  background: #fbfdff;
+}
+
+.packet-card span {
+  color: var(--blue-dark);
+  font-size: 0.74rem;
+  font-weight: 900;
+  text-transform: uppercase;
 }
 
 .insight-card {
@@ -597,6 +618,7 @@ h3 {
   .resume-grid,
   .role-grid,
   .comparison-grid,
+  .packet-grid,
   .brief-row,
   .dataset-row {
     grid-template-columns: 1fr;
