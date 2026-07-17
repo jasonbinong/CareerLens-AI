@@ -6,7 +6,7 @@ CareerLens is a labor market intelligence dashboard for students preparing for i
 
 ## Live Demo
 
-[Open CareerLens](https://jasonbinong.github.io/CareerLens-AI/)
+[Open CareerLens](https://jasonbinong.github.io/CareerLens/)
 
 ## What It Does
 
