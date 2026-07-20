@@ -2,101 +2,84 @@
 
 ![CareerLens thumbnail](thumbnail.png)
 
-CareerLens is a labor market intelligence dashboard for students preparing for internships and entry-level technology roles. It helps users understand what employers are asking for, compare their resume against market demand, and choose the next skills, projects, and certifications to prioritize.
+CareerLens is a labor market intelligence dashboard for students preparing for internships and entry-level technology roles. It turns job-posting patterns into role insights, skill demand, certification signals, resume gaps, and application-ready next steps.
 
-## Live Demo
+## Quick Links
 
-[Open CareerLens](https://jasonbinong.github.io/CareerLens/)
+- [Live App](https://jasonbinong.github.io/CareerLens/)
+- [Portfolio Case Study](https://jasonbinong.github.io/careerlens-case-study.html)
+- [Jason Binong Portfolio](https://jasonbinong.github.io/)
+
+## Project Snapshot
+
+| Area | Details |
+| --- | --- |
+| Status | Deployed portfolio product |
+| Focus | Labor market intelligence, resume gaps, role comparison |
+| Users | Students exploring internships, certifications, and early-career tech paths |
+| Core Stack | HTML, CSS, JavaScript, Python, SQL |
+| Deployment | GitHub Pages |
 
 ## What It Does
 
-CareerLens turns job posting text into a practical career-readiness report. Students can paste internship descriptions, choose a target role, scan demand across skills and certifications, and generate a learning roadmap based on gaps between their resume and the market.
+CareerLens helps students understand what employers are asking for before they spend months learning the wrong things. Users select a target role, paste or load job-posting text, review demanded skills and certifications, compare their resume against the market, and generate a learning roadmap.
 
-## Features
+## Key Features
 
-- Paste or load job postings
-- Choose from 19 student-facing tech roles
-- Analyze skill demand across postings
-- Generate priority insights that turn market signals into next actions
-- View an Opportunity Radar that summarizes market pull, resume fit, strongest proof, and credential signal
-- Produce an advisor-ready decision brief for the selected role
-- Run a reusable CSV job-posting analysis pipeline
-- Track certification signals
-- Compare resume text against market demand
-- Generate a prioritized learning roadmap
-- Get role-specific project and certification recommendations
-- View readiness level and critical resume gaps
-- Generate role-specific portfolio evidence checklists
-- Generate an application packet with LinkedIn headline, resume focus, portfolio proof, interview story, and readiness note
-- Generate resume bullet ideas from missing skills
-- Identify the first resume gap to close and the strongest portfolio proof to lead with
-- Compare early-career tech roles with built-in benchmark signals
-- View a curated market dataset with demand, estimated student salary ranges, top skills, and portfolio proof
-- Copy a market summary for advising, LinkedIn, or portfolio notes
-- Download a CSV career-readiness report
+- Role selection across student-facing tech paths
+- Job-posting text analysis for skill and certification demand
+- Resume gap comparison against selected role requirements
+- Opportunity Radar for market pull, fit, proof strength, and credential signal
+- Advisor-ready decision brief for the selected role
+- Role-specific project, certification, and portfolio evidence recommendations
+- Application packet with LinkedIn headline, resume focus, portfolio proof, interview story, and readiness note
+- CSV analysis pipeline for reusable job-posting analysis
 - SQL schema for storing postings, skill mentions, role summaries, and resume gap reports
-- Deployable as a static GitHub Pages app
+- Downloadable CSV career-readiness report
 
 ## Tech Stack
 
-- HTML
-- CSS
+- HTML/CSS
 - JavaScript
-- In-browser text analysis
 - Python
-- CSV analysis pipeline
-- SQL schema
+- SQL
+- CSV data workflow
+- GitHub Pages
 
-## What This Project Shows
+## What Reviewers Should Notice
 
-- Data analysis applied to career planning
-- Information systems thinking around labor market signals
-- Frontend dashboard design and interactive reporting
-- Reusable data pipeline design for job posting analysis
-- Relational modeling for market intelligence data
-- AI/product strategy for student career decision support
-- Labor market benchmarking and role comparison
+- Converts unstructured job descriptions into structured career insights
+- Combines data analysis, information systems, and student career planning
+- Produces practical outputs instead of only charts
+- Includes a path toward a larger backend/database product
 
 ## Case Study
 
 ### Problem
 
-Students often apply to internships without knowing which skills, certifications, and portfolio evidence employers are repeatedly asking for. Job descriptions contain useful signals, but those signals are hard to compare manually across roles.
+Students often apply to internships without knowing which skills, certifications, and portfolio evidence employers repeatedly ask for. Job descriptions contain useful signals, but those signals are hard to compare manually across roles.
 
 ### Solution
 
-CareerLens turns job posting text into a career-readiness report. Users select a target role, paste postings or load sample data, analyze skill and certification demand, compare resume text against role requirements, and generate a focused learning roadmap.
+CareerLens turns job-posting text into a career-readiness report. Users select a target role, paste postings or load sample data, analyze skill and certification demand, compare resume text against role requirements, and generate a focused learning roadmap.
 
 ### Key Design Decisions
 
 - Requires the user to select a role before analysis so the output is personalized
-- Uses in-browser text analysis to stay fast, private, and deployable on GitHub Pages
-- Adds Priority Insights and a Decision Brief so the analysis produces an actionable recommendation, not just charts
-- Adds Opportunity Radar so students can quickly judge whether a role is worth targeting and what proof to build next
-- Adds an Application Packet so the final output becomes useful for applying, interviewing, advising meetings, and LinkedIn updates
-- Adds a Python CSV pipeline so the analysis can scale beyond the browser demo
-- Includes a SQL schema to show how postings, skill mentions, and resume gap reports could be stored
-- Groups roles into student-facing categories such as data, AI, information systems, software, cloud, and security
-- Adds a benchmark dataset so users can compare demand, estimated student salary ranges, top skills, and portfolio proof by role
-
-### What I Learned
-
-This project helped me connect data analytics, career technology, and information systems. I practiced turning unstructured text into structured insights and designing a dashboard that explains not only what skills are missing, but what evidence a student should build next.
-
-### Future Improvements
-
-- Add a Python backend for larger job posting ingestion
-- Store posting history and user reports in SQL
-- Add live job-board API integrations
-- Build a Power BI dashboard from exported CareerLens reports
+- Uses in-browser text analysis to stay fast, private, and deployable
+- Adds Priority Insights and a Decision Brief so the analysis produces recommendations
+- Includes a Python CSV pipeline so the project can scale beyond the browser app
+- Includes a SQL schema to show how labor market data could be stored
 
 ## How To Run
 
 Open `index.html` in a browser.
 
+No installation is required for the static app.
+
 ## Data Pipeline
 
-CareerLens also includes a Python pipeline for analyzing job posting CSV files.
+CareerLens also includes a Python pipeline for analyzing job-posting CSV files.
 
 ```bash
 python scripts/analyze_postings.py
@@ -115,10 +98,10 @@ output/market_report.json
 output/role_skill_summary.csv
 ```
 
-## Future Upgrade Path
+## Future Improvements
 
-- Add a Python backend for job posting ingestion
-- Store posting history in SQL
-- Connect live job board APIs
-- Add OpenAI-powered resume rewrite suggestions
-- Export Power BI-ready CSV summaries
+- Add a backend for larger job-posting ingestion
+- Store posting history and user reports in SQL
+- Connect live job-board APIs
+- Export Power BI-ready summaries
+- Add AI-assisted resume rewrite suggestions
