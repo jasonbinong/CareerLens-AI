@@ -396,6 +396,7 @@ const els = {
   roleFocus: document.querySelector("#roleFocus"),
   roleProject: document.querySelector("#roleProject"),
   roleCert: document.querySelector("#roleCert"),
+  opportunityRadar: document.querySelector("#opportunityRadar"),
   evidenceChecklist: document.querySelector("#evidenceChecklist"),
   applicationPacket: document.querySelector("#applicationPacket"),
   skillMatrix: document.querySelector("#skillMatrix"),
@@ -504,6 +505,7 @@ function renderEmptyMarket() {
   els.roadmap.innerHTML = "<li>Select a role and analyze postings to generate a learning roadmap.</li>";
   els.evidenceChecklist.innerHTML = emptyState("Evidence requirements appear after analysis.");
   els.applicationPacket.innerHTML = emptyState("Analyze postings and compare a resume to generate application assets.");
+  els.opportunityRadar.innerHTML = emptyState("Analyze a role to see market demand, proof strategy, and next action.");
   els.priorityInsights.innerHTML = emptyState("Analyze postings to generate priority insights.");
   els.decisionBrief.innerHTML = emptyState("A concise role decision brief will appear after analysis.");
   els.marketSummary.textContent = "No market analysis yet.";
@@ -530,6 +532,7 @@ function renderMarket() {
   renderComparison();
   renderDatasetTable();
   renderRoleSnapshot();
+  renderOpportunityRadar();
   renderApplicationPacket([], state.analysis.sortedSkills.filter(item => item.count > 0).slice(0, 4));
   renderPriorityInsights();
   renderDecisionBrief();
@@ -635,6 +638,36 @@ function renderRoleSnapshot() {
   els.roleFocus.textContent = role.focus;
   els.roleProject.textContent = role.project;
   els.roleCert.textContent = role.cert;
+}
+
+function renderOpportunityRadar() {
+  if (!state.analysis) {
+    els.opportunityRadar.innerHTML = emptyState("Analyze a role to see market demand, proof strategy, and next action.");
+    return;
+  }
+  const selected = els.targetRole.value;
+  const role = roleProfiles[selected];
+  const benchmark = laborMarketDataset.find(item => item.key === selected);
+  const topSkills = state.analysis.sortedSkills.filter(item => item.count > 0);
+  const topCert = state.analysis.sortedCerts.find(item => item.count > 0)?.name || role.cert;
+  const score = state.resumeAnalysis?.score ?? 0;
+  const readiness = state.resumeAnalysis ? `${score}% resume match` : "Resume not compared";
+  const demand = benchmark ? `${benchmark.demand}/100` : `${state.analysis.postings.length} postings`;
+  const salary = benchmark?.salaryRange || "Varies by role";
+  const nextSkill = state.resumeAnalysis?.missing?.[0]?.name || topSkills[0]?.name || "Role proof";
+  const cards = [
+    ["Market pull", demand, `Estimated range: ${salary}`],
+    ["Resume fit", readiness, state.resumeAnalysis ? getReadinessLabel(score) : "Paste resume text for a fit score"],
+    ["Best proof", nextSkill, evidenceTemplates[nextSkill] || role.project],
+    ["Credential signal", topCert, "Use the cert to support a project, not replace one"]
+  ];
+  els.opportunityRadar.innerHTML = cards.map(([label, value, body]) => `
+    <div class="radar-card">
+      <span>${label}</span>
+      <strong>${value}</strong>
+      <p class="summary">${body}</p>
+    </div>
+  `).join("");
 }
 
 function renderMatrix(skills) {

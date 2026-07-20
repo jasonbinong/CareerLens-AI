@@ -18,6 +18,7 @@ CareerLens turns job posting text into a practical career-readiness report. Stud
 - Choose from 19 student-facing tech roles
 - Analyze skill demand across postings
 - Generate priority insights that turn market signals into next actions
+- View an Opportunity Radar that summarizes market pull, resume fit, strongest proof, and credential signal
 - Produce an advisor-ready decision brief for the selected role
 - Run a reusable CSV job-posting analysis pipeline
 - Track certification signals
@@ -71,6 +72,7 @@ CareerLens turns job posting text into a career-readiness report. Users select a
 - Requires the user to select a role before analysis so the output is personalized
 - Uses in-browser text analysis to stay fast, private, and deployable on GitHub Pages
 - Adds Priority Insights and a Decision Brief so the analysis produces an actionable recommendation, not just charts
+- Adds Opportunity Radar so students can quickly judge whether a role is worth targeting and what proof to build next
 - Adds an Application Packet so the final output becomes useful for applying, interviewing, advising meetings, and LinkedIn updates
 - Adds a Python CSV pipeline so the analysis can scale beyond the browser demo
 - Includes a SQL schema to show how postings, skill mentions, and resume gap reports could be stored

@@ -355,6 +355,7 @@ h3 {
 .cert-grid,
 .matrix-grid,
 .checklist-grid,
+.radar-grid,
 .bullet-list,
 .packet-grid,
 .insight-list,
@@ -426,6 +427,7 @@ h3 {
 
 .matrix-card,
 .cert-card,
+.radar-card,
 .gap-card,
 .check-card,
 .bullet-card,
@@ -447,6 +449,7 @@ h3 {
 
 .matrix-card h4,
 .cert-card h4,
+.radar-card h4,
 .gap-card h4,
 .check-card h4,
 .bullet-card h4,
@@ -457,6 +460,30 @@ h3 {
 
 .packet-grid {
   grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+.radar-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.radar-card {
+  min-height: 150px;
+  border-top: 5px solid var(--accent);
+}
+
+.radar-card span {
+  display: block;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.radar-card strong {
+  display: block;
+  margin: 0.45rem 0;
+  color: var(--ink);
+  font-size: 1.35rem;
 }
 
 .packet-card {
@@ -617,6 +644,7 @@ h3 {
   .two-column,
   .resume-grid,
   .role-grid,
+  .radar-grid,
   .comparison-grid,
   .packet-grid,
   .brief-row,
